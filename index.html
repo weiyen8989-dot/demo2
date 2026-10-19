@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>個人形象網頁 | 質感日系風格</title>
+    <style>
+        /* CSS 變數與基本設定 */
+        :root {
+            --bg-color: #f7f6f2;
+            /* 日系溫潤米白 */
+            --card-bg: #ffffff;
+            --text-main: #333333;
+            --text-muted: #777777;
+            --accent-color: #b8977e;
+            /* 沉穩日系奶茶棕 */
+            --accent-hover: #9c7b63;
+            --border-color: #e5e3db;
+            --transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans TC", sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            line-height: 1.8;
+            letter-spacing: 0.05em;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        /* 導覽列 */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background-color: rgba(247, 246, 242, 0.9);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .nav-container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 20px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.1rem;
+            font-weight: 500;
+            letter-spacing: 0.15em;
+            color: var(--text-main);
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 35px;
+            list-style: none;
+        }
+
+        .nav-links button {
+            background: none;
+            border: none;
+            font-size: 0.95rem;
+            color: var(--text-muted);
+            cursor: pointer;
+            letter-spacing: 0.1em;
+            transition: var(--transition);
+            font-family: inherit;
+            padding: 5px 0;
+            position: relative;
+        }
+
+        .nav-links button:hover,
+        .nav-links button.active {
+            color: var(--accent-color);
+        }
+
+        .nav-links button.active::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 1px;
+            background-color: var(--accent-color);
+        }
+
+        /* 主容器與頁面切換 */
+        main {
+            flex: 1;
+            margin-top: 80px;
+            /* 預留 Header 空間 */
+            position: relative;
+            overflow: hidden;
+        }
+
+        .page {
+            display: none;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 60px 40px 100px 40px;
+        }
+
+        .page.active {
+            display: block;
+            opacity: 1;
+        }
+
+        /* 第一頁：首頁 (Home) */
+        .hero {
+            display: grid;
+            grid-template-columns: 1.2fr 1fr;
+            gap: 60px;
+            align-items: center;
+            min-height: calc(100vh - 180px);
+        }
+
+        .hero-content h1 {
+            font-size: 2.5rem;
+            font-weight: 400;
+            line-height: 1.4;
+            margin-bottom: 20px;
+            letter-spacing: 0.08em;
+        }
+
+        .hero-content h1 span {
+            color: var(--accent-color);
+        }
+
+        .hero-content p {
+            color: var(--text-muted);
+            margin-bottom: 35px;
+            font-size: 1.05rem;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 12px 32px;
+            background-color: var(--accent-color);
+            color: white;
+            text-decoration: none;
+            border-radius: 2px;
+            font-size: 0.95rem;
+            letter-spacing: 0.1em;
+            transition: var(--transition);
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn:hover {
+            background-color: var(--accent-hover);
+        }
+
+        .hero-image {
+            width: 100%;
+            height: 420px;
+            background-color: #e8e5dc;
+            border-radius: 4px;
+            background-image: url('./甜點到.png');
+            background-size: cover;
+            background-position: center;
+            filter: grayscale(15%);
+        }
+
+        /* 第二頁：關於我 (About) */
+        .section-title {
+            font-size: 1.8rem;
+            font-weight: 400;
+            margin-bottom: 40px;
+            letter-spacing: 0.1em;
+            position: relative;
+            display: inline-block;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: -10px;
+            width: 40px;
+            height: 1px;
+            background-color: var(--accent-color);
+        }
+
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 1.2fr;
+            gap: 50px;
+            align-items: start;
+        }
+
+        .about-img {
+            width: 100%;
+            height: 380px;
+            background-color: #e8e5dc;
+            border-radius: 4px;
+            background-image: url('./甜點到2.png');
+            background-size: cover;
+            background-position: center;
+        }
+
+        .about-text h3 {
+            font-size: 1.3rem;
+            font-weight: 500;
+            margin-bottom: 15px;
+            letter-spacing: 0.05em;
+        }
+
+        .about-text p {
+            color: var(--text-muted);
+            margin-bottom: 20px;
+        }
+
+        .skills-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 25px;
+        }
+
+        .skill-tag {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            padding: 6px 16px;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            border-radius: 2px;
+            letter-spacing: 0.05em;
+        }
+
+        /* 第三頁：作品集/服務 (Works) */
+        .works-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            margin-top: 20px;
+        }
+
+        .work-card {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            overflow: hidden;
+            transition: var(--transition);
+        }
+
+        .work-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+        }
+
+        .work-img {
+            height: 200px;
+            background-color: #ddd;
+            background-size: cover;
+            background-position: center;
+        }
+
+        .work-info {
+            padding: 25px;
+        }
+
+        .work-info h4 {
+            font-size: 1.1rem;
+            font-weight: 500;
+            margin-bottom: 10px;
+            letter-spacing: 0.05em;
+        }
+
+        .work-info p {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+        }
+
+        /* 頁尾 */
+        footer {
+            text-align: center;
+            padding: 30px;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            border-top: 1px solid var(--border-color);
+            letter-spacing: 0.1em;
+        }
+
+        /* RWD 響應式調整 */
+        @media (max-width: 768px) {
+            .nav-container {
+                padding: 15px 20px;
+            }
+
+            .hero,
+            .about-grid,
+            .works-grid {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+
+            .hero {
+                min-height: auto;
+                padding-top: 20px;
+            }
+
+            .hero-image {
+                height: 300px;
+            }
+
+            .page {
+                padding: 40px 20px 80px 20px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- 頂部導覽列 -->
+    <header>
+        <div class="nav-container">
+            <a href="#" class="logo" onclick="switchPage('home')">PORTFOLIO</a>
+            <ul class="nav-links">
+                <li><button id="nav-home" class="active" onclick="switchPage('home')">首頁</button></li>
+                <li><button id="nav-about" onclick="switchPage('about')">關於我</button></li>
+                <li><button id="nav-works" onclick="switchPage('works')">作品與服務</button></li>
+            </ul>
+        </div>
+    </header>
+
+    <!-- 主要內容區 (包含三頁) -->
+    <main>
+        <!-- 第一頁：首頁 -->
+        <section id="page-home" class="page active">
+            <div class="hero">
+                <div class="hero-content">
+                    <h1>今天夠苦了，別再對自己苦<span>甜點品牌形象</span></h1>
+                    <p>不是嘴饞，是今天值得被犒賞。
+
+                        休息不是偷懶，是為明天充電。今天很累，那就甜一下。
+
+                        今天不太莓好，那就吃點莓好。
+
+                        今天需要一點芋見幸福。
+
+                        今天的壞心情，讓甜點幫你捲走。</p>
+                    <button class="btn" onclick="switchPage('works')">瀏覽作品</button>
+                </div>
+                <div class="hero-image"></div>
+            </div>
+        </section>
+
+        <!-- 第二頁：關於我 -->
+        <section id="page-about" class="page">
+            <h2 class="section-title">ABOUT ME</h2>
+            <div class="about-grid">
+                <div class="about-img"></div>
+                <div class="about-text">
+                    <h3>甜點到，幸福就到</h3>
+                    <p>「甜點到」誕生於一個很簡單的想法：忙了一整天的人，也值得有一小段真正屬於自己的甜蜜時光。 現代生活步調快速，上班族忙著工作、學生忙著課業，壓力常常累積到下班、下課後才有機會慢慢放下。我們希望用一份剛剛好的甜點，替疲憊的心情充電，也用「莓好時光」、「芋見幸福」、「布能沒有你」這些輕鬆有趣的諧音梗，讓甜點不只是好吃，更能帶來微笑與情緒價值。</p>
+                    <p>除了甜點販售，「甜點到」也提供專業的手作空間與師資，讓喜歡烘焙的人能清楚了解食材來源、製作流程與衛生環境，親手完成專屬於自己的甜點。</p>
+                    <div class="skills-list">
+                        <span class="skill-tag">情緒價值❤</span>
+                        <span class="skill-tag">甜點品牌🍰</span>
+                        <span class="skill-tag">專業手作🎨</span>
+                        <span class="skill-tag">心情諧音🌈</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 第三頁：作品集/服務 -->
+        <section id="page-works" class="page">
+            <h2 class="section-title">WORKS & SERVICES</h2>
+            <div class="works-grid">
+                <div class="work-card">
+                    <div class="work-img"
+                        style="background-image: url('./甜點到3.png');">
+                    </div>
+                    <div class="work-info">
+                        <h4>甜點療癒</h4>
+                        <p>用一份剛剛好的甜，替生活補充好心情。</p>
+                    </div>
+                </div>
+                <div class="work-card">
+                    <div class="work-img"
+                        style="background-image: url('./甜點到4.png');">
+                    </div>
+                    <div class="work-info">
+                        <h4>手作體驗</h4>
+                        <p>從食材到成品，親手做出專屬於自己的甜點。</p>
+                    </div>
+                </div>
+                <div class="work-card">
+                    <div class="work-img"
+                        style="background-image: url('./甜點到5.png');">
+                    </div>
+                    <div class="work-info">
+                        <h4>心意客製</h4>
+                        <p>把祝福、感謝與想念，變成可以吃的心意。</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- 頁尾 -->
+    <footer>
+        <p>&copy; 2026 Personal Portfolio. All Rights Reserved.</p>
+    </footer>
+
+    <!-- 頁面切換控制的 JavaScript -->
+    <script>
+        function switchPage(pageId) {
+            // 隱藏所有頁面
+            const pages = document.querySelectorAll('.page');
+            pages.forEach(page => page.classList.remove('active'));
+
+            // 移除所有導覽按鈕的 active 樣式
+            const navButtons = document.querySelectorAll('.nav-links button');
+            navButtons.forEach(btn => btn.classList.remove('active'));
+
+            // 顯示目標頁面
+            const targetPage = document.getElementById(`page-${pageId}`);
+            if (targetPage) {
+                targetPage.classList.add('active');
+            }
+
+            // 點亮對應導覽按鈕
+            const targetNav = document.getElementById(`nav-${pageId}`);
+            if (targetNav) {
+                targetNav.classList.add('active');
+            }
+
+            // 滾動回頂部
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+    </script>
+</body>
+
+</html>
